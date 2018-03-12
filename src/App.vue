@@ -1,15 +1,18 @@
 <template>
-  <!-- Don't drop "q-app" class -->
   <div id="q-app">
     <router-view />
   </div>
 </template>
 
 <script>
-/*
- * Root component
- */
-export default {}
+
+export default {
+  name: 'App',
+  mounted () {
+    this.$store.dispatch('loadCarts')
+  }
+}
 </script>
 
-<style></style>
+<style>
+</style>
