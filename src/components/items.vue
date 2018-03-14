@@ -1,11 +1,17 @@
 <template>
-  <div>
-    <!-- <q-chips-input v-model="items" float-label="Einkaufsliste" /> -->
-    <template v-if="items">
-      <div>
-        <item v-for="item in items" :key="item.Id" :item="item"></item>
+  <div class="item-page" v-if="selectedCart !== null">
+      <div class="q-headline">{{selectedCart.Title}}</div>
+      <div class="q-subheading">{{selectedCart.Shop}} | {{creationDateTime}}</div>
+    <div class="item-container">
+      <div class="item-input">
+        <q-input v-model="text" float-label="Float Label" />
       </div>
-    </template>
+      <div class="item-list">
+        <template v-if="filteredItems">
+          <item v-for="item in items" :key="item.Id" :item="item"></item>
+        </template>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -15,13 +21,25 @@ import item from '../components/item.vue'
 export default {
   data () {
     return {
+      text: ''
     }
   },
   computed: {
     items () {
-      if (this.$store.state.carts.items) {
-        return this.$store.state.carts.items
+      return this.$store.state.carts.items
+    },
+    filteredItems () {
+      if (this.items) {
+        return this.items.filter(i => !i.IsDeleted)
       }
+    },
+    selectedCart () {
+      return this.$store.state.carts.selectedCart
+    },
+    creationDateTime () {
+      const date = new Date(parseInt(this.selectedCart.CreationDate))
+      const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+      return formattedDate
     }
   },
   methods: {
@@ -31,4 +49,7 @@ export default {
 </script>
 
 <style lang="css" scopes>
+.item-page {
+  margin: 20px;
+}
 </style>

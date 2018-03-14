@@ -13,3 +13,11 @@ export const getItems = (id) => {
       return response.data
     })
 }
+
+export const setItemState = ({id, isActive}) => {
+  return axios.put(`http://localhost:3000/api/item/${id}/${isActive}`)
+}
+
+export const deleteItem = (id) => {
+  return axios.delete(`http://localhost:3000/api/item/${id}`)
+}

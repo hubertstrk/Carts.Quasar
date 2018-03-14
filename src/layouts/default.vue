@@ -12,7 +12,7 @@
       </q-toolbar>
     </q-layout-header>
 
-    <q-layout-drawer v-model="leftDrawerOpen" content-class="bg-grey-2" >
+    <q-layout-drawer v-model="leftDrawerOpen" content-class="bg-grey-2'" >
       <carts></carts>
     </q-layout-drawer>
 
@@ -50,5 +50,5 @@ export default {
 }
 </script>
 
-<style>
+<style lang="css" scoped>
 </style>

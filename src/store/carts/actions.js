@@ -7,8 +7,19 @@ export const loadCarts = ({commit}) => {
 }
 
 export const loadItems = ({state, commit}) => {
-  const selectedCart = state.selectedCart
-  api.getItems(selectedCart).then((items) => {
+  api.getItems(state.selectedCart.Id).then((items) => {
     commit('storeItems', {items})
+  })
+}
+
+export const setItemState = ({state, commit}, {id, isActive}) => {
+  api.setItemState({id, isActive}).then(() => {
+    commit('setItemState', {id, isActive})
+  })
+}
+
+export const deleteItem = ({state, commit}, {id}) => {
+  api.deleteItem(id).then(() => {
+    commit('deleteItem', {id})
   })
 }

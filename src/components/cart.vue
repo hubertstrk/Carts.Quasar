@@ -18,7 +18,7 @@ export default {
   methods: {
     onCartClick () {
       this.$store.commit('toggleDrawerOpened')
-      this.$store.commit('selectCart', {id: this.cart.Id})
+      this.$store.commit('selectCart', {cart: this.cart})
       this.$store.dispatch('loadItems')
     }
   }
