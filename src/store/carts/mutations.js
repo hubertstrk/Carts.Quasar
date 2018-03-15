@@ -1,4 +1,5 @@
 export const storeCarts = (state, carts) => {
+  state.carts = []
   carts.forEach((c) => {
     state.carts.push(c)
   })
@@ -10,6 +11,10 @@ export const storeItems = (state, {items}) => {
 
 export const selectCart = (state, {cart}) => {
   state.selectedCart = cart
+}
+
+export const clearCart = (state) => {
+  state.selectedCart = null
 }
 
 export const setItemState = (state, {id, isActive}) => {

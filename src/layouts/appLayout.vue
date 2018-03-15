@@ -17,14 +17,13 @@
     </q-layout-drawer>
 
     <q-page-container>
-      <items></items>
+      <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
 import { openURL } from 'quasar'
-import items from '../components/items.vue'
 import carts from '../components/carts.vue'
 
 export default {
@@ -46,7 +45,7 @@ export default {
   methods: {
     openURL
   },
-  components: {carts, items}
+  components: {carts}
 }
 </script>
 

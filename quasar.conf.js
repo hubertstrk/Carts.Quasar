@@ -11,10 +11,7 @@ module.exports = function (ctx) {
     ],
     extras: [
       ctx.theme.mat ? 'roboto-font' : null,
-      'material-icons',
-      // 'ionicons',
-      // 'mdi',
-      //'fontawesome'
+      'material-icons'
     ],
     supportIE: false,
     vendor: {
@@ -68,7 +65,13 @@ module.exports = function (ctx) {
         'QCardSeparator',
         'QCardActions',
         'QChip',
-        'QInput'
+        'QInput',
+        'QFab',
+        'QFabAction',
+        'QDatetimePicker',
+        'QSelect',
+        'QBtn',
+        'QPageSticky'
       ],
       directives: [
         'Ripple'

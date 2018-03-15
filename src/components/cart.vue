@@ -20,6 +20,7 @@ export default {
       this.$store.commit('toggleDrawerOpened')
       this.$store.commit('selectCart', {cart: this.cart})
       this.$store.dispatch('loadItems')
+      this.$router.push('items')
     }
   }
 }

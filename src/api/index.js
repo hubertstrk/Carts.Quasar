@@ -21,3 +21,13 @@ export const setItemState = ({id, isActive}) => {
 export const deleteItem = (id) => {
   return axios.delete(`http://localhost:3000/api/item/${id}`)
 }
+
+export const addCart = ({title, shop}) => {
+  return axios.post(`http://localhost:3000/api/cart`, {
+    title, shop
+  })
+}
+
+export const deleteCart = (id) => {
+  return axios.delete(`http://localhost:3000/api/cart/${id}`)
+}

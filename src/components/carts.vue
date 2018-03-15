@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     carts () {
-      return this.$store.state.carts.carts
+      return this.$store.getters.carts
     }
   },
   methods: {
