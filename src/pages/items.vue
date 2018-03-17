@@ -17,8 +17,8 @@
             <q-input v-model="text" @keyup.enter="addItem" float-label="Zur Einkausliste hinzufügen" />
           </div>
           <div class="item-list">
-            <template v-if="filteredItems">
-              <item v-for="item in filteredItems" :key="item.Id" :item="item"></item>
+            <template v-if="sortedItems">
+              <item v-for="item in sortedItems" :key="item.Id" :item="item"></item>
             </template>
           </div>
         </div>
@@ -37,6 +37,7 @@
 <script>
 import item from '../components/item.vue'
 import { date } from 'quasar'
+import _ from 'lodash'
 
 export default {
   data () {
@@ -52,6 +53,9 @@ export default {
       if (this.items) {
         return this.items.filter(i => !i.IsDeleted)
       }
+    },
+    sortedItems () {
+      return _.sortBy(this.filteredItems, ['Name'])
     },
     selectedCart () {
       return this.$store.state.carts.selectedCart
