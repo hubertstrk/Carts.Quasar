@@ -1,10 +1,21 @@
 <template>
-  <div>
-    <h3>AddCart</h3>
-    <h5>{{titleSelection}}</h5>
-    <q-btn icon="autorenew" @click="generateTitleSelection()"/>
-    <q-select clearable v-model="shopSelection" :options="shopOptions" />
-    <q-btn icon="add shopping cart" @click="addCart()">Einkausfwagen erstellen</q-btn>
+  <div class="container">
+    <div class="title">
+      <big>Neuer Einkaufswagen</big>
+    </div>
+    <div class="quotes">
+      <div class="q-subheading">{{titleSelection}}</div>
+      <q-btn size="xs" round color="purple" icon="autorenew" @click="generateTitleSelection()"/>
+    </div>
+
+    <div style="margin-top: 20px;">
+      <q-select stack-label="Shop" inverted-light color="blue-grey-2" separator
+        v-model="shopSelection" :options="shopOptions" />
+    </div>
+
+    <div style="margin-top: 20px;">
+      <q-btn class="float-right" color="positive" icon="add shopping cart" icon-right="send" label="Einkausfwagen erstellen" @click="addCart()" />
+    </div>
   </div>
 </template>
 
@@ -60,4 +71,13 @@ export default {
 </script>
 
 <style lang="css" scopes>
+.container {
+  margin: 10px;
+}
+.title {
+  margin-top: 30px;
+}
+.quotes {
+  margin-top: 10px;
+}
 </style>

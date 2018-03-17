@@ -71,7 +71,8 @@ module.exports = function (ctx) {
         'QDatetimePicker',
         'QSelect',
         'QBtn',
-        'QPageSticky'
+        'QPageSticky',
+        'QPullToRefresh'
       ],
       directives: [
         'Ripple'

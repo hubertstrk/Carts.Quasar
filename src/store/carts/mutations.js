@@ -13,10 +13,6 @@ export const selectCart = (state, {cart}) => {
   state.selectedCart = cart
 }
 
-export const clearCart = (state) => {
-  state.selectedCart = null
-}
-
 export const setItemState = (state, {id, isActive}) => {
   const item = state.items.find(i => i.Id === id)
   item.IsActive = isActive
@@ -25,4 +21,12 @@ export const setItemState = (state, {id, isActive}) => {
 export const deleteItem = (state, {id}) => {
   const item = state.items.find(i => i.Id === id)
   item.IsDeleted = true
+}
+
+export const clearCart = (state) => {
+  state.selectedCart = null
+}
+
+export const clearItems = (state) => {
+  state.items = []
 }

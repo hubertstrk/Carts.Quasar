@@ -24,11 +24,12 @@ export const deleteItem = ({state, commit}, {id}) => {
   })
 }
 
-export const addCart = ({state, dispatch, getters}, {title, shop}) => {
+export const addCart = ({state, dispatch, commit, getters}, {title, shop}) => {
   return api.addCart({title, shop})
     .then(() => {
       dispatch('loadCarts').then(() => {
         state.selectedCart = getters.latestCart
+        commit('clearItems')
       })
     })
 }
@@ -38,5 +39,13 @@ export const deleteCart = ({state, dispatch, commit}) => {
     dispatch('loadCarts')
     commit('toggleDrawerOpened')
     commit('clearCart')
+    commit('clearItems')
   })
+}
+
+export const addItem = ({state, dispatch}, {text}) => {
+  return api.addItem({cartId: state.selectedCart.Id, text})
+    .then(() => {
+      dispatch('loadItems')
+    })
 }
