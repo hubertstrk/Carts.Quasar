@@ -24,11 +24,16 @@
     </div>
   </q-pull-to-refresh>
   <q-page-sticky position="bottom-right" :offset="[80, 80]">
-    <q-fab class="fixed" color="primary" icon="keyboard_arrow_up" direction="up">
-      <q-fab-action color="negative" @click="deleteCart" icon="delete"/>
-      <q-fab-action color="positive" @click="addCart" icon="add" />
+    <q-fab class="fixed" color="secondary" icon="keyboard_arrow_up" direction="up">
+      <q-fab-action color="negative" @click="onDeleteClicked" icon="delete"/>
+      <!-- <q-fab-action color="positive" @click="addCart" icon="add" /> -->
     </q-fab>
   </q-page-sticky>
+  <q-modal v-model="modalOpen" position="bottom" :content-css="{padding: '20px', 'background-color': '#F2C037'}">
+      <div class="q-display-1 q-mb-md">Löschen</div><p>Bist du sicher dass du diesen Einkaufswagen löschen möchtest?</p>
+      <q-btn class="float-right" color="secondary" @click="modalOpen = false" label="Nein" />
+      <q-btn style="margin-right: 10px;" class="float-right" color="negative" @click="deleteCart" label="Ja" />
+    </q-modal>
 </div>
 </template>
 
@@ -41,7 +46,8 @@ export default {
   data () {
     return {
       text: '',
-      checked: false
+      checked: false,
+      modalOpen: false
     }
   },
   computed: {
@@ -85,6 +91,7 @@ export default {
       })
     },
     deleteCart () {
+      this.modalOpen = false
       this.$store.dispatch('deleteCart')
     },
     addCart () {
@@ -104,6 +111,9 @@ export default {
     formatTime (value) {
       const createdDate = new Date(parseInt(value))
       return date.formatDate(createdDate, 'HH:mm:ss')
+    },
+    onDeleteClicked () {
+      this.modalOpen = true
     }
   },
   components: {item}

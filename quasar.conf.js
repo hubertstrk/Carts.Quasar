@@ -74,7 +74,8 @@ module.exports = function (ctx) {
         'QPageSticky',
         'QPullToRefresh',
         'QCheckbox',
-        'QToggle'
+        'QToggle',
+        'QModal'
       ],
       directives: [
         'Ripple'

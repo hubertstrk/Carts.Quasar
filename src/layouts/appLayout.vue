@@ -10,7 +10,8 @@
           CARTS
           <span slot="subtitle">Shopping</span>
         </q-toolbar-title>
-        <q-btn flat round dense icon="settings" @click="onSettingsClick" aria-label="Toggle menu on right side" />
+        <q-btn flat round dense icon="add shopping cart" @click="onNewCartClicked" aria-label="Add new cart" />
+        <q-btn flat round dense icon="settings" @click="onSettingsClicked" aria-label="Toggle menu on right side" />
       </q-toolbar>
     </q-layout-header>
 
@@ -46,8 +47,11 @@ export default {
   },
   methods: {
     openURL,
-    onSettingsClick () {
+    onSettingsClicked () {
       this.$router.push('settings')
+    },
+    onNewCartClicked () {
+      this.$router.push('addCart')
     }
   },
   components: {carts}

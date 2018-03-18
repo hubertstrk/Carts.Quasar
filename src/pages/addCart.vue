@@ -5,7 +5,7 @@
     </div>
     <div class="quotes">
       <span class="title">{{titleSelection}}</span>
-      <span class="float-right"><q-btn size="xs" round color="primary" icon="autorenew" @click="generateTitleSelection()"/></span>
+      <span class="float-right"><q-btn size="xs" round color="secondary" icon="autorenew" @click="generateTitleSelection()"/></span>
     </div>
 
     <div style="margin-top: 20px;">
