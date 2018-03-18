@@ -23,7 +23,7 @@
       </div>
     </div>
   </q-pull-to-refresh>
-  <q-page-sticky position="bottom-right" :offset="[80, 80]">
+  <q-page-sticky v-if="selectedCart" position="bottom-right" :offset="[80, 80]">
     <q-fab class="fixed" color="secondary" icon="keyboard_arrow_up" direction="up">
       <q-fab-action color="negative" @click="onDeleteClicked" icon="delete"/>
       <!-- <q-fab-action color="positive" @click="addCart" icon="add" /> -->
@@ -98,7 +98,7 @@ export default {
       this.$router.push('addCart')
     },
     addItem () {
-      if (this.filteredItems.map(s => s.Name).includes(this.text)) {
+      if (this.displayItems.map(s => s.Name).includes(this.text)) {
         return
       }
       this.$store.dispatch('addItem', {text: this.text})
