@@ -4,12 +4,12 @@
       <big>Neuer Einkaufswagen</big>
     </div>
     <div class="quotes">
-      <div class="q-subheading">{{titleSelection}}</div>
-      <q-btn size="xs" round color="purple" icon="autorenew" @click="generateTitleSelection()"/>
+      <span class="caption">{{titleSelection}}</span>
+      <span class="float-right"><q-btn size="xs" round color="primary" icon="autorenew" @click="generateTitleSelection()"/></span>
     </div>
 
     <div style="margin-top: 20px;">
-      <q-select stack-label="Shop" inverted-light color="blue-grey-2" separator
+      <q-select stack-label="Shop" color="text-secondary" separator
         v-model="shopSelection" :options="shopOptions" />
     </div>
 

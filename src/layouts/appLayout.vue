@@ -8,11 +8,13 @@
 
         <q-toolbar-title>
           CARTS
+          <span slot="subtitle">Shopping</span>
         </q-toolbar-title>
+        <q-btn flat round dense icon="settings" @click="onSettingsClick" aria-label="Toggle menu on right side" />
       </q-toolbar>
     </q-layout-header>
 
-    <q-layout-drawer v-model="leftDrawerOpen" content-class="bg-grey-2'" >
+    <q-layout-drawer v-model="leftDrawerOpen" content-class="" >
       <carts></carts>
     </q-layout-drawer>
 
@@ -43,7 +45,10 @@ export default {
     }
   },
   methods: {
-    openURL
+    openURL,
+    onSettingsClick () {
+      this.$router.push('settings')
+    }
   },
   components: {carts}
 }

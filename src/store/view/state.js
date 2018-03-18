@@ -1,3 +1,4 @@
 export default {
-  leftDrawerOpen: false
+  leftDrawerOpen: false,
+  displayDone: false
 }

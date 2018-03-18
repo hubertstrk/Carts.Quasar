@@ -1,6 +1,7 @@
 import appLayout from 'layouts/appLayout'
 import items from 'pages/items'
 import addCart from 'pages/addCart'
+import settings from 'pages/settings'
 
 export default [
   {
@@ -8,7 +9,8 @@ export default [
     component: appLayout,
     children: [
       { path: 'items', component: items },
-      { path: 'addCart', component: addCart }
+      { path: 'addCart', component: addCart },
+      { path: 'settings', component: settings }
     ]
   },
 

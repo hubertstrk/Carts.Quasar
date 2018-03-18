@@ -4,21 +4,19 @@
     <div>
       <div v-if="selectedCart !== null">
         <div class="q-headline">{{selectedCart.Title}}</div>
-        <div class="q-subheading">{{selectedCart.Shop}}</div>
+        <div class="caption">{{selectedCart.Shop}}</div>
 
         <div style="margin-top: 5px;">
-          <!-- <span class="q-caption">{{formatDate(selectedCart.CreationDate)}}</span>
-          <span class="text-blue-grey-5 q-caption">{{formatTime(selectedCart.CreationDate)}}</span> -->
-          <q-chip square  small color="black">{{formatDate(selectedCart.CreationDate)}}</q-chip>
-          <q-chip square  small color="black">{{formatTime(selectedCart.CreationDate)}}</q-chip>
+          <q-chip square small color="red">{{formatDate(selectedCart.CreationDate)}}</q-chip>
+          <q-chip square small color="yellow-9">{{formatTime(selectedCart.CreationDate)}}</q-chip>
         </div>
         <div class="item-container">
           <div class="item-input">
             <q-input v-model="text" @keyup.enter="addItem" float-label="Zur Einkausliste hinzufügen" />
           </div>
           <div class="item-list">
-            <template v-if="sortedItems">
-              <item v-for="item in sortedItems" :key="item.Id" :item="item"></item>
+            <template v-if="displayItems">
+              <item v-for="item in displayItems" :key="item.Id" :item="item"></item>
             </template>
           </div>
         </div>
@@ -26,9 +24,9 @@
     </div>
   </q-pull-to-refresh>
   <q-page-sticky position="bottom-right" :offset="[80, 80]">
-    <q-fab class="fixed" color="positive" icon="keyboard_arrow_up" direction="up">
-      <q-fab-action color="secondary" @click="deleteCart" icon="delete"/>
-      <q-fab-action color="secondary" @click="addCart" icon="add" />
+    <q-fab class="fixed" color="primary" icon="keyboard_arrow_up" direction="up">
+      <q-fab-action color="negative" @click="deleteCart" icon="delete"/>
+      <q-fab-action color="positive" @click="addCart" icon="add" />
     </q-fab>
   </q-page-sticky>
 </div>
@@ -42,23 +40,41 @@ import _ from 'lodash'
 export default {
   data () {
     return {
-      text: ''
+      text: '',
+      checked: false
     }
   },
   computed: {
+    selectedCart () {
+      return this.$store.state.carts.selectedCart
+    },
     items () {
       return this.$store.state.carts.items
     },
-    filteredItems () {
-      if (this.items) {
-        return this.items.filter(i => !i.IsDeleted)
-      }
+    displayDone () {
+      return this.$store.state.view.displayDone
     },
-    sortedItems () {
-      return _.sortBy(this.filteredItems, ['Name'])
+    filterDeleted (item) {
+      return !item.IsDeleted
     },
-    selectedCart () {
-      return this.$store.state.carts.selectedCart
+    filterDone (item) {
+      if (this.displayDone) { return true }
+    },
+    displayItems () {
+      if (!this.items) { return }
+      const filtered = this.items.filter(item => !item.IsDeleted)
+        .filter((item) => {
+          if (this.displayDone) {
+            return true
+          } else {
+            if (item.IsActive) {
+              return true
+            } else {
+              return false
+            }
+          }
+        })
+      return _.sortBy(filtered, ['Name'])
     }
   },
   methods: {

@@ -72,7 +72,9 @@ module.exports = function (ctx) {
         'QSelect',
         'QBtn',
         'QPageSticky',
-        'QPullToRefresh'
+        'QPullToRefresh',
+        'QCheckbox',
+        'QToggle'
       ],
       directives: [
         'Ripple'
