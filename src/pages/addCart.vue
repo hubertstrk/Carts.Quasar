@@ -4,7 +4,7 @@
       <big>Neuer Einkaufswagen</big>
     </div>
     <div class="quotes">
-      <span class="caption">{{titleSelection}}</span>
+      <span class="title">{{titleSelection}}</span>
       <span class="float-right"><q-btn size="xs" round color="primary" icon="autorenew" @click="generateTitleSelection()"/></span>
     </div>
 

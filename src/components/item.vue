@@ -1,5 +1,5 @@
 <template>
-  <q-chip closable :color="itemColor" @hide="onClosed" @click="onClicked">
+  <q-chip closable :rounded="rounded" :square="square" :color="itemColor" @hide="onClosed" @click="onClicked">
     <div>{{item.Name}}</div>
   </q-chip>
 </template>
@@ -22,6 +22,18 @@ export default {
   computed: {
     itemColor () {
       return this.item.IsActive ? 'primary' : 'light'
+    },
+    rounded () {
+      if (this.$store.state.view.chipAppearance === 'round') {
+        return true
+      }
+      return false
+    },
+    square () {
+      if (this.$store.state.view.chipAppearance === 'square') {
+        return true
+      }
+      return false
     }
   }
 }

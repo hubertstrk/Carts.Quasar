@@ -12,7 +12,7 @@
         </div>
         <div class="item-container">
           <div class="item-input">
-            <q-input v-model="text" @keyup.enter="addItem" float-label="Zur Einkausliste hinzufügen" />
+            <q-input v-model="text" @keyup.enter="addItem" float-label="Hinzufügen" />
           </div>
           <div class="item-list">
             <template v-if="displayItems">
@@ -48,17 +48,14 @@ export default {
     selectedCart () {
       return this.$store.state.carts.selectedCart
     },
+    sorting () {
+      return this.$store.state.view.sorting
+    },
     items () {
       return this.$store.state.carts.items
     },
     displayDone () {
       return this.$store.state.view.displayDone
-    },
-    filterDeleted (item) {
-      return !item.IsDeleted
-    },
-    filterDone (item) {
-      if (this.displayDone) { return true }
     },
     displayItems () {
       if (!this.items) { return }
@@ -74,7 +71,11 @@ export default {
             }
           }
         })
-      return _.sortBy(filtered, ['Name'])
+      if (this.sorting === 'alphabet') {
+        return _.sortBy(filtered, ['Name'])
+      } else {
+        return filtered
+      }
     }
   },
   methods: {
