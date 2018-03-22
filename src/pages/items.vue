@@ -4,6 +4,7 @@
     <div>
       <div v-if="selectedCart !== null">
         <div class="q-headline">{{selectedCart.Title}}</div>
+        <q-progress :percentage="progress" :color="color" />
         <div class="caption">{{selectedCart.Shop}}</div>
 
         <div style="margin-top: 5px;">
@@ -82,6 +83,28 @@ export default {
       } else {
         return filtered
       }
+    },
+    progress: {
+      get: function () {
+        if (!this.items) { return }
+        const deleted = this.items.filter(i => i.IsDeleted)
+        const inactive = this.items.filter(i => !i.IsActive && !i.IsDeleted)
+        return (inactive.length / (this.items.length - deleted.length)) * 100
+      },
+      set: function (value) {
+      }
+    },
+    color () {
+      if (this.progress >= 0 && this.progress < 25) {
+        return 'negative'
+      }
+      if (this.progress >= 25 && this.progress < 50) {
+        return 'warning'
+      }
+      if (this.progress >= 50 && this.progress < 75) {
+        return 'info'
+      }
+      return 'positive'
     }
   },
   methods: {

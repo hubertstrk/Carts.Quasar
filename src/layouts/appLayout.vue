@@ -43,6 +43,9 @@ export default {
       set (value) {
         this.$store.commit('toggleDrawerOpened')
       }
+    },
+    selectedCart () {
+      return this.$store.state.carts.selectedCart
     }
   },
   methods: {
