@@ -1,10 +1,13 @@
 <template>
   <div @click.prevent="onCartClick">
-    <q-item>
+    <q-item-separator />
+    <q-item dense=true tag="label">
       <q-item-side icon="shopping cart"/>
       <q-item-main :label="cart.Title" :sublabel="cart.Shop" />
+      <q-item-side left="true">
+        <q-radio v-model="option" val="opt1" />
+      </q-item-side>
     </q-item>
-    <q-item-separator />
   </div>
 </template>
 

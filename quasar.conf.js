@@ -77,7 +77,8 @@ module.exports = function (ctx) {
         'QToggle',
         'QModal',
         'QProgress',
-        'Cookies'
+        'Cookies',
+        'Loading'
       ],
       directives: [
         'Ripple'

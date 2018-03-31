@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-list no-border link>
+    <q-list no-border link striped>
       <q-list-header>Carts</q-list-header>
       <template v-for="cart in carts">
         <cart :cart="cart" :key="cart.Id"></cart>

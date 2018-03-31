@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-layout-header>
+    <q-layout-header v-if="displayApp">
       <q-toolbar color="primary">
         <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen">
           <q-icon name="menu" />
@@ -10,17 +10,22 @@
           CARTS
           <span slot="subtitle">Shopping</span>
         </q-toolbar-title>
-        <q-btn flat round dense icon="add shopping cart" @click="onNewCartClicked" aria-label="Add new cart" />
-        <q-btn flat round dense icon="settings" @click="onSettingsClicked" aria-label="Toggle menu on right side" />
+        <q-btn v-if="loggedIn" flat round dense icon="add shopping cart" @click="onNewCartClicked" aria-label="Add new cart" />
+        <q-btn v-if="loggedIn" flat round dense icon="settings" @click="onSettingsClicked" aria-label="Toggle menu on right side" />
+        <q-btn flat round dense icon="perm identity" @click="displayAuthModal()" aria-label="Login"></q-btn>
       </q-toolbar>
     </q-layout-header>
 
-    <q-layout-drawer v-model="leftDrawerOpen" content-class="" >
-      <carts></carts>
+    <q-layout-drawer v-model="leftDrawerOpen" :content-class="['bg-grey-3']">
+      <carts v-if="displayApp"></carts>
     </q-layout-drawer>
 
     <q-page-container>
-      <router-view />
+      <template v-if="displayApp">
+        <transition name="fade" mode="out-in">
+          <router-view />
+        </transition>
+      </template>
     </q-page-container>
   </q-layout>
 </template>
@@ -28,6 +33,7 @@
 <script>
 import { openURL } from 'quasar'
 import carts from '../components/carts.vue'
+import netlifyIdentity from 'netlify-identity-widget'
 
 export default {
   name: 'LayoutDefault',
@@ -46,6 +52,12 @@ export default {
     },
     selectedCart () {
       return this.$store.state.carts.selectedCart
+    },
+    displayApp () {
+      return this.$store.state.view.displayApp
+    },
+    loggedIn () {
+      return this.$store.state.view.loggedIn
     }
   },
   methods: {
@@ -55,11 +67,22 @@ export default {
     },
     onNewCartClicked () {
       this.$router.push('addCart')
+    },
+    displayAuthModal () {
+      netlifyIdentity.open()
     }
+  },
+  mounted () {
   },
   components: {carts}
 }
 </script>
 
 <style lang="css" scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to{
+  opacity: 0;
+}
 </style>

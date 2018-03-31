@@ -5,8 +5,13 @@
 </template>
 
 <script>
+import {auth} from './data/auth'
 import {readCookie} from './data/cookie'
 import {convert} from './data/helper'
+import netlifyIdentity from 'netlify-identity-widget'
+
+window.netlifyIdentity = netlifyIdentity
+netlifyIdentity.init()
 
 export default {
   name: 'App',
@@ -16,24 +21,47 @@ export default {
       if (value !== undefined) {
         this.$store.commit(commit, convert(value))
       }
+    },
+    isUserLoggedIn () {
+      const user = netlifyIdentity.currentUser()
+      console.info(user)
+      return user
     }
   },
   mounted () {
-    this.$store.dispatch('loadCarts')
-      .then(() => {
-        const carts = this.$store.getters.carts
-        if (carts.length > 0) {
-          this.$store.commit('selectCart', {cart: carts[0]})
-          this.$store.dispatch('loadItems')
-          this.$router.push('items')
-        }
-      })
     this.readSetting('carts/displayDone', 'setDisplayDone')
     this.readSetting('carts/sorting', 'setSorting')
     this.readSetting('carts/chipAppearance', 'setChipAppearance')
+
+    if (auth.enabled) {
+      netlifyIdentity.on('login', (user) => {
+        this.$store.dispatch('login')
+        this.$router.push('/')
+        netlifyIdentity.close()
+      })
+      netlifyIdentity.on('logout', (user) => {
+        this.$store.dispatch('logout')
+        this.$router.push('/')
+      })
+      netlifyIdentity.on('open', () => {
+        this.$store.commit('hideApp')
+      })
+      netlifyIdentity.on('close', () => {
+        this.$store.commit('displayApp')
+      })
+
+      if (!this.isUserLoggedIn()) {
+        netlifyIdentity.open('login')
+      } else {
+        this.$store.dispatch('login')
+        this.$router.push('/')
+      }
+    } else {
+      this.$store.dispatch('login')
+    }
   }
 }
 </script>
 
-<style>
+<style lang="css" scoped>
 </style>

@@ -23,10 +23,14 @@ export const deleteItem = (state, {id}) => {
   item.IsDeleted = true
 }
 
-export const clearCart = (state) => {
+export const clearSelectedCart = (state) => {
   state.selectedCart = null
 }
 
 export const clearItems = (state) => {
   state.items = []
+}
+
+export const clearCarts = (state) => {
+  state.carts = []
 }

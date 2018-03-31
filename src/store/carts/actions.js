@@ -38,7 +38,7 @@ export const deleteCart = ({state, dispatch, commit}) => {
   return api.deleteCart(state.selectedCart.Id).then(() => {
     dispatch('loadCarts')
     commit('toggleDrawerOpened')
-    commit('clearCart')
+    commit('clearSelectedCart')
     commit('clearItems')
   })
 }
@@ -48,4 +48,21 @@ export const addItem = ({state, dispatch}, {text}) => {
     .then(() => {
       dispatch('loadItems')
     })
+}
+
+export const login = ({ state, commit, dispatch }) => {
+  dispatch('loadCarts').then(() => {
+    dispatch('loadCarts')
+    commit('displayApp')
+    commit('setLoggedIn')
+    commit('toggleDrawerOpened')
+  })
+}
+
+export const logout = ({ state, commit, dispatch }) => {
+  commit('clearItems')
+  commit('clearCarts')
+  commit('clearSelectedCart')
+  commit('setLoggedOut')
+  commit('hideApp')
 }

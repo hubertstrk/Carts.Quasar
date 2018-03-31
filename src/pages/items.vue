@@ -13,7 +13,7 @@
         </div>
         <div class="item-container">
           <div class="item-input">
-            <q-input v-model="text" @keyup.enter="addItem" float-label="Hinzufügen" />
+            <q-input :after="[{icon: '', handler () {}}]" v-model="text" icon="add" @keyup.enter="addItem" float-label="Hinzufügen" />
           </div>
           <div class="item-list">
             <template v-if="displayItems">
@@ -25,7 +25,7 @@
     </div>
   </q-pull-to-refresh>
   <q-page-sticky v-if="selectedCart" position="bottom-right" :offset="[80, 80]">
-    <q-fab class="fixed" color="secondary" icon="keyboard_arrow_up" direction="up">
+    <q-fab push class="fixed" color="secondary" icon="keyboard_arrow_up" direction="up">
       <q-fab-action color="negative" @click="onDeleteClicked" icon="delete"/>
       <!-- <q-fab-action color="positive" @click="addCart" icon="add" /> -->
     </q-fab>
