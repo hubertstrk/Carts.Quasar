@@ -3,9 +3,9 @@
     <div class="title">
       <big>Neuer Einkaufswagen</big>
     </div>
-    <div class="quotes">
+    <div class="quotes" @click="generateTitleSelection()">
       <span class="title">{{titleSelection}}</span>
-      <span class="float-right"><q-btn size="xs" round color="secondary" icon="autorenew" @click="generateTitleSelection()"/></span>
+      <!-- <span class="float-right"><q-btn size="xs" round color="secondary" icon="autorenew" @click="generateTitleSelection()"/></span> -->
     </div>
 
     <div style="margin-top: 20px;">
@@ -26,37 +26,47 @@ export default {
     return {
       titleSelection: '',
       titleOptions: [
-        {label: 'Hungrig?', value: '1'},
-        {label: 'Gandalf hat ein Zeichen an meine Tür gemacht', value: '2'},
-        {label: 'Eltern kommen über\'s Wochenende', value: '3'},
-        {label: 'Kochen ist die Stärke der Frau', value: '4'},
-        {label: 'I love cooking!', value: '5'},
-        {label: 'Biete Sex für Essen', value: '6'},
-        {label: 'Du kochst, ich esse!', value: '7'},
-        {label: 'Die Apokalypse scheint nah zu sein', value: '8'},
-        {label: 'Ich Bier, du Essen', value: '10'},
-        {label: 'Kochen ist mein zweiter Vorname', value: '11'},
-        {label: 'Earl Grey Tee kann auch keine Lösung sein', value: '12'}
+        {label: 'Hungrig?', category: 'food'},
+        {label: 'Gandalf hat ein Zeichen an meine Tür gemacht', category: 'food'},
+        {label: 'Eltern kommen über\'s Wochenende', category: 'food'},
+        {label: 'Kochen ist die Stärke der Frau', category: 'food'},
+        {label: 'I love cooking!', category: 'food'},
+        {label: 'Biete Sex für Essen', category: 'food'},
+        {label: 'Du kochst, ich esse!', category: 'food'},
+        {label: 'Die Apokalypse scheint nah zu sein', category: 'food'},
+        {label: 'Ich Bier, du Essen', category: 'food'},
+        {label: 'Kochen ist mein zweiter Vorname', category: 'food'},
+        {label: 'Earl Grey Tee kann auch keine Lösung sein', category: 'food'},
+        {label: 'Ketchkups ist alle', category: 'food'},
+        {label: 'Jo, wir schaffen das!', category: 'construction'},
+        {label: 'Meister Manni wäre stolz auf uns', category: 'construction'}
       ],
       shopSelection: '',
       shopOptions: [
-        {label: 'Aldi', value: 'Aldi'},
-        {label: 'Penny', value: 'Penny'},
-        {label: 'Netto', value: 'Netto'},
-        {label: 'DM', value: 'DM'},
-        {label: 'Edeka', value: 'Edeka'}
+        {label: 'Baumarkt', value: 'Baumarkt', category: 'construction'},
+        {label: 'Penny', value: 'Penny', category: 'food'},
+        {label: 'Aldi', value: 'Aldi', category: 'food'},
+        {label: 'Netto', value: 'Netto', category: 'food'},
+        {label: 'DM', value: 'DM', category: 'food'},
+        {label: 'Edeka', value: 'Edeka', category: 'food'}
       ]
     }
   },
   computed: {
   },
   methods: {
-    randomInt () {
-      return Math.floor((Math.random() * this.titleOptions.length))
+    randomInt (max) {
+      return Math.floor((Math.random() * max))
     },
     generateTitleSelection () {
-      const rand = this.randomInt()
-      this.titleSelection = this.titleOptions[rand].label
+      if (!this.shopSelection) {
+        return
+      }
+      const category = this.shopOptions.find(s => s.label === this.shopSelection).category
+      const titles = this.titleOptions.filter(s => s.category === category)
+      const rand = this.randomInt(titles.length)
+      console.info(rand)
+      this.titleSelection = titles[rand].label
     },
     addCart () {
       this.$store.dispatch('addCart', {title: this.titleSelection, shop: this.shopSelection})
@@ -66,6 +76,11 @@ export default {
   mounted () {
     this.generateTitleSelection()
     this.shopSelection = this.shopOptions[1].label
+  },
+  watch: {
+    shopSelection () {
+      this.generateTitleSelection()
+    }
   }
 }
 </script>

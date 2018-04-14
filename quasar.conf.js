@@ -58,17 +58,10 @@ module.exports = function (ctx) {
         'QItemSide',
         'QItemSeparator',
         'QChipsInput',
-        'QCard',
-        'QCardTitle',
-        'QCardMain',
-        'QCardMedia',
-        'QCardSeparator',
-        'QCardActions',
         'QChip',
         'QInput',
         'QFab',
         'QFabAction',
-        'QDatetimePicker',
         'QSelect',
         'QBtn',
         'QPageSticky',
@@ -78,7 +71,8 @@ module.exports = function (ctx) {
         'QModal',
         'QProgress',
         'Cookies',
-        'Loading'
+        'QTimeline',
+        'QTimelineEntry'
       ],
       directives: [
         'Ripple'

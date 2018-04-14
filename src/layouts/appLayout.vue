@@ -1,8 +1,8 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-layout-header v-if="displayApp">
+  <q-layout view="lHh Lpr lFf" v-if="displayApp">
+    <q-layout-header>
       <q-toolbar color="primary">
-        <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen">
+        <q-btn flat dense @click="leftDrawerOpen = !leftDrawerOpen">
           <q-icon name="menu" />
         </q-btn>
 
@@ -17,11 +17,11 @@
     </q-layout-header>
 
     <q-layout-drawer v-model="leftDrawerOpen" :content-class="['bg-grey-3']">
-      <carts v-if="displayApp"></carts>
+      <carts ></carts>
     </q-layout-drawer>
 
     <q-page-container>
-      <template v-if="displayApp">
+      <template>
         <transition name="fade" mode="out-in">
           <router-view />
         </transition>
@@ -58,6 +58,13 @@ export default {
     },
     loggedIn () {
       return this.$store.state.view.loggedIn
+    },
+    platformStyle () {
+      console.info(this.$q.platform.is.mobile)
+      return {
+        mobile: this.$q.platform.is.mobile,
+        desktop: this.$q.platform.is.desktop
+      }
     }
   },
   methods: {
@@ -84,5 +91,11 @@ export default {
 }
 .fade-enter, .fade-leave-to{
   opacity: 0;
+}
+.mobile {
+  width: 400px;
+}
+.desktop {
+  width: 700px;
 }
 </style>

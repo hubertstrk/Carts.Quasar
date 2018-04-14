@@ -1,25 +1,30 @@
 <template>
 <div class="item-page" >
   <q-pull-to-refresh :handler="refresher">
-    <div>
-      <div v-if="selectedCart !== null">
-        <div class="q-headline">{{selectedCart.Title}}</div>
-        <q-progress :percentage="progress" :color="color" />
-        <div class="caption">{{selectedCart.Shop}}</div>
+    <q-progress :percentage="progress" :color="color" />
+    <div style="padding: 5px;" v-if="selectedCart !== null">
 
-        <div style="margin-top: 5px;">
-          <q-chip square small color="red">{{formatDate(selectedCart.CreationDate)}}</q-chip>
-          <q-chip square small color="yellow-9">{{formatTime(selectedCart.CreationDate)}}</q-chip>
+      <!-- <div>
+        <span class="q-caption text-tertiary">{{formatDate(selectedCart.CreationDate)}}</span> -->
+        <!-- <span class="q-caption text-tertiary">{{formatTime(selectedCart.CreationDate)}}</span> -->
+        <!-- <span class="q-caption text-tertiary">| {{selectedCart.Shop}}</span>
+      </div> -->
+      <h4 style="margin: 0px;" class="text-tertiary">{{selectedCart.Title}}</h4>
+      <p style="margin: 0px;">{{selectedCart.Shop}}</p>
+      <!-- <div class="caption">{{selectedCart.Shop}}</div> -->
+
+      <!-- <div style="margin-top: 5px;">
+        <q-chip square small color="red">{{formatDate(selectedCart.CreationDate)}}</q-chip>
+        <q-chip square small color="yellow-9">{{formatTime(selectedCart.CreationDate)}}</q-chip>
+      </div> -->
+      <div class="item-container">
+        <div class="item-input">
+          <q-input :after="[{icon: '', handler () {}}]" v-model="text" icon="add" @keyup.enter="addItem" float-label="Hinzufügen" />
         </div>
-        <div class="item-container">
-          <div class="item-input">
-            <q-input :after="[{icon: '', handler () {}}]" v-model="text" icon="add" @keyup.enter="addItem" float-label="Hinzufügen" />
-          </div>
-          <div class="item-list">
-            <template v-if="displayItems">
-              <item v-for="item in displayItems" :key="item.Id" :item="item"></item>
-            </template>
-          </div>
+        <div class="item-list">
+          <template v-if="displayItems">
+            <item v-for="item in displayItems" :key="item.Id" :item="item"></item>
+          </template>
         </div>
       </div>
     </div>
@@ -31,7 +36,7 @@
     </q-fab>
   </q-page-sticky>
   <q-modal v-model="modalOpen" position="bottom" :content-css="{padding: '20px', 'background-color': '#F2C037'}">
-      <div class="q-display-1 q-mb-md">Löschen</div><p>Bist du sicher dass du diesen Einkaufswagen löschen möchtest?</p>
+      <div class="q-display-1 q-mb-md">Löschen</div><p>Wer löscht bekommt nichts zu essen! Nochmal überlegen oder trotzdem löschen?</p>
       <q-btn class="float-right" color="secondary" @click="modalOpen = false" label="Nein" />
       <q-btn style="margin-right: 10px;" class="float-right" color="negative" @click="deleteCart" label="Ja" />
     </q-modal>
